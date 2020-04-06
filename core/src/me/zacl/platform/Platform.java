@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import me.zacl.platform.screen.PlayScreen;
 
 public class Platform extends Game {
+   public final int WORLD_WIDTH = 800;
+   public final int WORLD_HEIGHT = 320;
+
    public SpriteBatch batch;
 
    @Override
