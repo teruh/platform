@@ -4,29 +4,34 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import me.zacl.platform.Platform;
 
 public class PlayScreen implements Screen {
 
    private Platform game;
 
-   private Texture img;
-
    private OrthographicCamera camera;
-   private Viewport           viewport;
+
+   private TmxMapLoader mapLoader;
+   private TiledMap tiledMap;
+   private OrthogonalTiledMapRenderer mapRenderer;
+
+   private float unitScale = 1 / 16f;
 
    public PlayScreen(Platform game) {
       this.game = game;
 
-      img = new Texture("badlogic.jpg");
+      mapLoader = new TmxMapLoader();
+      tiledMap = mapLoader.load("plat_dev.tmx");
+      mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, unitScale);
 
       camera = new OrthographicCamera();
-      viewport = new FitViewport(game.WORLD_WIDTH / 2, game.WORLD_HEIGHT / 2, camera);
-      viewport.apply();
+      camera.setToOrtho(false, 20, 10);
+      camera.update();
    }
 
    @Override
@@ -34,17 +39,22 @@ public class PlayScreen implements Screen {
 
    }
 
+   public void update(float dt) {
+      camera.update();
+      mapRenderer.setView(camera);
+   }
+
    @Override
    public void render(float delta) {
-      Gdx.gl.glClearColor(0, 1, 1, 1);
+      update(delta);
+
+      Gdx.gl.glClearColor(1, 0, 0, 1);
       Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+      mapRenderer.render();
 
       camera.update();
       game.batch.setProjectionMatrix(camera.combined);
-
-      game.batch.begin();
-      game.batch.draw(img, 0, 0);
-      game.batch.end();
    }
 
    @Override
@@ -69,6 +79,5 @@ public class PlayScreen implements Screen {
 
    @Override
    public void dispose() {
-      img.dispose();
    }
 }
