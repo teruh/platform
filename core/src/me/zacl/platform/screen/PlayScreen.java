@@ -1,37 +1,23 @@
 package me.zacl.platform.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import me.zacl.platform.Platform;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import me.zacl.platform.map.GameMap;
 
 public class PlayScreen implements Screen {
 
-   private Platform game;
-
+   private GameMap map; // The current "level" or map
    private OrthographicCamera camera;
+   private SpriteBatch spriteBatch;
 
-   private TmxMapLoader mapLoader;
-   private TiledMap tiledMap;
-   private OrthogonalTiledMapRenderer mapRenderer;
-
-   private float unitScale = 1 / 16f;
-
-   public PlayScreen(Platform game) {
-      this.game = game;
-
-      mapLoader = new TmxMapLoader();
-      tiledMap = mapLoader.load("plat_dev.tmx");
-      mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, unitScale);
+   public PlayScreen(SpriteBatch spriteBatch) {
+      this.spriteBatch = spriteBatch;
 
       camera = new OrthographicCamera();
-      camera.setToOrtho(false, 20, 10);
       camera.update();
+
+      map = new GameMap("plat_dev.tmx");
    }
 
    @Override
@@ -39,22 +25,9 @@ public class PlayScreen implements Screen {
 
    }
 
-   public void update(float dt) {
-      camera.update();
-      mapRenderer.setView(camera);
-   }
-
    @Override
    public void render(float delta) {
-      update(delta);
-
-      Gdx.gl.glClearColor(1, 0, 0, 1);
-      Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-      mapRenderer.render();
-
-      camera.update();
-      game.batch.setProjectionMatrix(camera.combined);
+      map.render(camera, spriteBatch);
    }
 
    @Override
@@ -79,5 +52,6 @@ public class PlayScreen implements Screen {
 
    @Override
    public void dispose() {
+      map.dispose();
    }
 }
