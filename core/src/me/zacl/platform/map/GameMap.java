@@ -18,10 +18,11 @@ public class GameMap {
    /**
     * Set default class attributes
     * @param mapPath LibGDX's directory path to the map
+    * @param unitScale logical representation of the world (1x1 in code = unitScale tile pixels)
     */
-   public GameMap(String mapPath) {
+   public GameMap(String mapPath, float unitScale) {
       tiledMap = new TmxMapLoader().load(mapPath);
-      mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+      mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, unitScale);
    }
 
    /**

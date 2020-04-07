@@ -1,29 +1,37 @@
 package me.zacl.platform;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import me.zacl.platform.screen.PlayScreen;
 
+/**
+ * This class starts the game and ultimately handles graphics rendering
+ * 2020-04-06
+ *
+ * @author Zach Clark
+ */
 public class Platform extends Game {
-   public SpriteBatch batch;
-
+   /**
+    * Set the proper game screen and give it references needed to handle rendering/updating
+    */
    @Override
-   public void create () {
-      batch = new SpriteBatch();
-      setScreen(new PlayScreen(batch));
+   public void create() {
+      setScreen(new PlayScreen());
    }
 
+   /**
+    * Main game rendering - scenes generally handle this individually
+    */
    @Override
-   public void render () {
+   public void render() {
       super.render();
    }
 
+   /**
+    * Handle the closing of the game
+    */
    @Override
-   public void dispose () {
-      batch.dispose();
+   public void dispose() {
       super.dispose();
    }
 }
