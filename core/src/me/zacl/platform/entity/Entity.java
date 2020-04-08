@@ -1,4 +1,4 @@
-package me.zacl.platform.entities;
+package me.zacl.platform.entity;
 
 import com.badlogic.gdx.math.Vector2;
 import me.zacl.platform.map.GameMap;

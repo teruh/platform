@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import me.zacl.platform.map.GameMap;
 import com.badlogic.gdx.graphics.GL20;
+import me.zacl.platform.util.ConstantsContract;
 
 /**
  * Handles game play logic. Initializes the level, player, and related systems.
@@ -14,9 +15,6 @@ import com.badlogic.gdx.graphics.GL20;
  * @author Zach Clark
  */
 public class PlayScreen implements Screen {
-   // Used to scale map pixels to logical dimensions (1x1 in game logic = 16x16 pixels)
-   private final float UNIT_SCALE = 1 / 16f;
-
    private GameMap            map;         // The current "level" or map
    private OrthographicCamera camera;      // The main camera for the level (our eyes!)
    private SpriteBatch        spriteBatch; // Describes/sends all sprites to the GPU at once
@@ -31,7 +29,7 @@ public class PlayScreen implements Screen {
       camera.setToOrtho(false, 20, 10); // How many tiles are visible (e.x. 20x10)
       camera.update();
 
-      map = new GameMap("plat_dev.tmx", UNIT_SCALE);
+      map = new GameMap("plat_dev.tmx", ConstantsContract.UNIT_SCALE);
    }
 
    @Override
