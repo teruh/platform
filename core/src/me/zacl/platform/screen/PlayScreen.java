@@ -4,18 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
+import me.zacl.platform.entity.Player;
 import me.zacl.platform.map.GameMap;
 import com.badlogic.gdx.graphics.GL20;
 import me.zacl.platform.util.ConstantsContract;
 
 /**
- * Handles game play logic. Initializes the level, player, and related systems.
+ * Handles gameplay logic. Initializes the level, player, and related systems.
  * 2020-04-06
  *
  * @author Zach Clark
  */
 public class PlayScreen implements Screen {
    private GameMap            map;         // The current "level" or map
+   private Player             player;      // The player
    private OrthographicCamera camera;      // The main camera for the level (our eyes!)
    private SpriteBatch        spriteBatch; // Describes/sends all sprites to the GPU at once
 
@@ -30,6 +33,8 @@ public class PlayScreen implements Screen {
       camera.update();
 
       map = new GameMap("plat_dev.tmx", ConstantsContract.UNIT_SCALE);
+
+      player = new Player(4, 4, map);
    }
 
    @Override
@@ -51,6 +56,14 @@ public class PlayScreen implements Screen {
 
       camera.update();
       map.render(camera, spriteBatch);
+
+      if (Gdx.input.isTouched()) {
+         camera.translate((-Gdx.input.getDeltaX() * ConstantsContract.UNIT_SCALE),
+                          (Gdx.input.getDeltaY() * ConstantsContract.UNIT_SCALE));
+         camera.update();
+      }
+
+      player.render(spriteBatch);
    }
 
    @Override

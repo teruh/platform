@@ -1,5 +1,7 @@
 package me.zacl.platform.entity;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import me.zacl.platform.map.GameMap;
 
 /**
@@ -8,17 +10,16 @@ import me.zacl.platform.map.GameMap;
  *
  * @author Zach Clark
  */
-public class Player extends Entity {
-
+public class Player extends TexturedEntity {
    /**
     * Set default class values
     *
-    * @param x   x-position of the entity in the world
-    * @param y   y-position of the entity in the world
-    * @param map game world the entity lives in
+    * @param x   x-position of the player in the world
+    * @param y   y-position of the player in the world
+    * @param map game world the player lives in
     */
    public Player(float x, float y, GameMap map) {
-      super(x, y, map);
+      super(x, y, map, new Texture("player.png"));
    }
 
    @Override
@@ -27,7 +28,9 @@ public class Player extends Entity {
    }
 
    @Override
-   public void render() {
-
+   public void render(SpriteBatch batch) {
+      batch.begin();
+      batch.draw(getTexture(), getPositionX(), getPositionY(), getWidth(), getHeight());
+      batch.end();
    }
 }

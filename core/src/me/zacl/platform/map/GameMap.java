@@ -3,8 +3,11 @@ package me.zacl.platform.map;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import me.zacl.platform.util.ConstantsContract;
 
 /**
  * Handle the loading and rendering of a TiledMap
@@ -53,24 +56,43 @@ public class GameMap {
    }
 
    /**
-    * Get the tile at a certain pixel location.
-    * @param layer map layer to search
-    * @param x x-pixel
-    * @param y y-pixel
-    * @return tile at the specified pixel location
+    * Get the tile at a world coordinate.
+    *
+    * @param layer  map layer to search
+    * @param column tile's column
+    * @param row    tile's row
+    * @return tile at the specified world coordinate
     */
-   public Tile getTileTypeByLocation(int layer, float x, float y) {
+   public Tile getTileTypeByCoordinate(int layer, int column, int row) {
+      TiledMapTile tile;
+      TiledMapTileLayer.Cell cell = ((TiledMapTileLayer) tiledMap.getLayers().get(layer))
+          .getCell(column, row);
+
+      // Make sure cell actually exists before doing anything to prevent npx
+      if (cell != null) {
+         tile = cell.getTile();
+
+         // Make sure tile actually exists before doing anything to prevent npx
+         if (tile != null) {
+            int id = tile.getId();
+            return Tile.getTileTypeByID(id);
+         }
+      }
+
       return null;
    }
 
    /**
-    * Get the tile at a world coordinate.
+    * Get the tile at a certain pixel location.
+    * Simply calls getTileTypeByCoordinate by converting x/y pixels to the world coordinates.
+    *
     * @param layer map layer to search
-    * @param x x-coordinate
-    * @param y y-pixel
-    * @return tile at the specified world coordinate
+    * @param x     x-pixel
+    * @param y     y-pixel
+    * @return tile at the specified pixel location
     */
-   public Tile getTileTypeByCoordinate(int layer, float x, float y) {
-      return null;
+   public Tile getTileTypeByLocation(int layer, float x, float y) {
+      return this.getTileTypeByCoordinate(layer, (int) (x / ConstantsContract.TILE_SIZE),
+                                          (int) (y / ConstantsContract.TILE_SIZE));
    }
 }

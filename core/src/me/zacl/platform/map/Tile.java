@@ -13,10 +13,12 @@ public enum Tile {
    /**
     * Tile types
     */
-   SKY(0, false),
-   BRICKS(1, true);
+   AIR(0, "Air", false),
+   SKY(1, "Sky", false),
+   BRICKS(2, "Brick", true);
 
    private int     id;          // Tile's unique identifier
+   private String  name;        // Tile's name for debugging/logging
    private boolean isSolid;     // Will things collide with this tile?
 
    private static HashMap<Integer, Tile> tileMap; // Hold the tile type tied to it's id
@@ -25,9 +27,10 @@ public enum Tile {
     * Set default tile values
     *
     * @param id      tile's unique identifier
+    * @param name    tile's name
     * @param isSolid if things will collide with the tile in the world
     */
-   Tile(int id, boolean isSolid) {
+   Tile(int id, String name, boolean isSolid) {
       this.id = id;
       this.isSolid = isSolid;
    }
@@ -39,6 +42,15 @@ public enum Tile {
     */
    public int getId() {
       return id;
+   }
+
+   /**
+    * Get the tile's name
+    *
+    * @return tile's name
+    */
+   public String getName() {
+      return name;
    }
 
    /**
@@ -60,6 +72,7 @@ public enum Tile {
 
    /**
     * Find the type of tile connected to a certain id
+    *
     * @param id tile's id
     * @return the type of tile tied to this id
     */

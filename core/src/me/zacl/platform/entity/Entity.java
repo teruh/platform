@@ -1,5 +1,6 @@
 package me.zacl.platform.entity;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import me.zacl.platform.map.GameMap;
 
@@ -36,15 +37,7 @@ public abstract class Entity {
    /**
     * Render entity in the world
     */
-   public abstract void render();
-
-   /**
-    * Get the position of the entity
-    * @return entity's position as a vector
-    */
-   public Vector2 getPosition() {
-      return position;
-   }
+   public abstract void render(SpriteBatch batch);
 
    /**
     * Get the x-position of the entity
