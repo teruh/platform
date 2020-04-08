@@ -1,7 +1,6 @@
 package me.zacl.platform;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import me.zacl.platform.screen.PlayScreen;
 
 /**

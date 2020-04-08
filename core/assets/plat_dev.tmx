@@ -49,10 +49,4 @@
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
 </data>
  </layer>
- <objectgroup id="4" name="ground_col">
-  <object id="12" x="0" y="304" width="800" height="16"/>
-  <object id="15" x="0" y="16" width="16" height="288"/>
-  <object id="16" x="784" y="16" width="16" height="288"/>
-  <object id="17" x="0" y="0" width="800" height="16"/>
- </objectgroup>
 </map>
