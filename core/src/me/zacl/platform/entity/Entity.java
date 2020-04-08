@@ -82,6 +82,25 @@ public abstract class Entity {
    }
 
    /**
+    * Add the given vector to the position vector
+    * Allows "movement" by taking existing values and performing addition on them
+    * @param vector vector to add to position vector
+    */
+   public void addToPositionVector(Vector2 vector) {
+      position.add(vector);
+   }
+
+   /**
+    * Add the given components to the position vector
+    * Allows "movement" by taking existing values and performing addition on them
+    * @param x x-value to add to position vector
+    * @param y y-value to add to position vector
+    */
+   public void addToPositionVector(float x, float y) {
+      position.add(x, y);
+   }
+
+   /**
     * Change the map the entity belongs to
     * @param map world the entity exists in
     */
