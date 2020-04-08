@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 /**
  * Handle the loading and rendering of a TiledMap
  * 2020-04-06
+ *
  * @author Zach Clark
  */
 public class GameMap {
@@ -17,7 +18,8 @@ public class GameMap {
 
    /**
     * Set default class attributes
-    * @param mapPath LibGDX's directory path to the map
+    *
+    * @param mapPath   LibGDX's directory path to the map
     * @param unitScale logical representation of the world (1x1 in code = unitScale tile pixels)
     */
    public GameMap(String mapPath, float unitScale) {
@@ -28,14 +30,19 @@ public class GameMap {
    /**
     * Handle the rendering of the game's map
     * Does nothing on it's own -> must be called from a render method in screen
+    *
     * @param camera camera the world will be visible from
-    * @param batch SpriteBatch that map will render to
+    * @param batch  SpriteBatch that map will render to
     */
    public void render(OrthographicCamera camera, SpriteBatch batch) {
       mapRenderer.setView(camera);
       mapRenderer.render();
 
       batch.setProjectionMatrix(camera.combined);
+
+      batch.begin();
+      // TODO: render entities here
+      batch.end();
    }
 
    /**
@@ -43,5 +50,27 @@ public class GameMap {
     */
    public void dispose() {
       tiledMap.dispose();
+   }
+
+   /**
+    * Get the tile at a certain pixel location.
+    * @param layer map layer to search
+    * @param x x-pixel
+    * @param y y-pixel
+    * @return tile at the specified pixel location
+    */
+   public Tile getTileTypeByLocation(int layer, float x, float y) {
+      return null;
+   }
+
+   /**
+    * Get the tile at a world coordinate.
+    * @param layer map layer to search
+    * @param x x-coordinate
+    * @param y y-pixel
+    * @return tile at the specified world coordinate
+    */
+   public Tile getTileTypeByCoordinate(int layer, float x, float y) {
+      return null;
    }
 }
