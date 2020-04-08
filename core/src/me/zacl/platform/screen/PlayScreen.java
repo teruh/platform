@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import me.zacl.platform.entity.Player;
 import me.zacl.platform.map.GameMap;
 import com.badlogic.gdx.graphics.GL20;
+import me.zacl.platform.map.PhysicsWorld;
 import me.zacl.platform.util.ConstantsContract;
 
 /**
@@ -16,11 +18,12 @@ import me.zacl.platform.util.ConstantsContract;
  *
  * @author Zach Clark
  */
-public class PlayScreen implements Screen {
-   private GameMap            map;         // The current "level" or map
-   private Player             player;      // The player
-   private OrthographicCamera camera;      // The main camera for the level (our eyes!)
-   private SpriteBatch        spriteBatch; // Describes/sends all sprites to the GPU at once
+public class PlayScreen extends PhysicsWorld implements Screen {
+
+   private GameMap            map;          // The current "level" or map
+   private Player             player;       // The player
+   private OrthographicCamera camera;       // The main camera for the level (our eyes!)
+   private SpriteBatch        spriteBatch;  // Describes/sends all sprites to the GPU at once
 
    /**
     * Set default values for the play screen

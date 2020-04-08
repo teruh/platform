@@ -33,24 +33,6 @@ public class Player extends TexturedEntity {
 
    @Override
    public void update(float deltaTime) {
-      // We only want to run once per frame!
-      if (deltaTime == 0) {
-         return;
-      } else if (deltaTime > 0.1f) {
-         deltaTime = 0.1f;
-      }
-
-      // Apply gravity
-      velocity.add(0, ConstantsContract.GRAVITY);
-
-      // Scale velocity so we know how far we need to move in this update
-      velocity.scl(deltaTime);
-
-      // Set the latest position
-      addToPositionVector(velocity);
-
-      // Unscale velocity
-      velocity.scl(1 / deltaTime);
    }
 
    @Override
