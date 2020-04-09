@@ -65,6 +65,7 @@ public class PlayScreen implements Screen {
 
       player.update(Gdx.graphics.getDeltaTime());
 
+      camera.position.x = player.getBody().getPosition().x;
       camera.update();
 
       map.render(camera, spriteBatch);

@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class Player extends PhysicsEntity {
 
-   private Body    body;
+   private Body body;
    private BodyDef bodyDef;
    private FixtureDef fixtureDef;
    private PolygonShape shape;
@@ -40,6 +40,8 @@ public class Player extends PhysicsEntity {
 
       fixtureDef.shape = shape;
       body.createFixture(fixtureDef);
+
+      setBody(body);
    }
 
    public void handleInput(float deltaTime) {

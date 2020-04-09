@@ -18,6 +18,7 @@ public abstract class PhysicsEntity extends Entity {
     * Physics variables
     */
    private World box2DWorld;
+   private Body    body;
 
    private Texture texture;   // Texture that represents this entity
    private float   width;     // Entity's width in world units
@@ -89,5 +90,13 @@ public abstract class PhysicsEntity extends Entity {
 
    public World getBox2DWorld() {
       return box2DWorld;
+   }
+
+   public Body getBody() {
+      return body;
+   }
+
+   public void setBody(Body body) {
+      this.body = body;
    }
 }
