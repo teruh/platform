@@ -13,19 +13,16 @@ import me.zacl.platform.map.GameMap;
 public abstract class Entity {
 
    private Vector2 position; // X, Y position of the entity in the world
-   private GameMap map;      // Game world the entity lives in
 
    /**
     * Set default class values
     * @param x x-position of the entity in the world
     * @param y y-position of the entity in the world
-    * @param map game world the entity lives in
     */
-   public Entity(float x, float y, GameMap map) {
+   public Entity(float x, float y) {
       this.position = new Vector2();
       position.x = x;
       position.y = y;
-      this.map = map;
    }
 
    /**
@@ -98,13 +95,5 @@ public abstract class Entity {
     */
    public void addToPositionVector(float x, float y) {
       position.add(x, y);
-   }
-
-   /**
-    * Change the map the entity belongs to
-    * @param map world the entity exists in
-    */
-   public void setMap(GameMap map) {
-      this.map = map;
    }
 }

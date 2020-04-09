@@ -51,4 +51,12 @@ public class GameMap {
    public void dispose() {
       tiledMap.dispose();
    }
+
+   /**
+    * Get the instance of the TiledMap
+    * @return instance of the TiledMap
+    */
+   public TiledMap getTiledMap() {
+      return tiledMap;
+   }
 }

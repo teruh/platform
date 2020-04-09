@@ -19,7 +19,6 @@ public class ConstantsContract {
    // Used to scale map pixels to logical dimensions (1x1 in game logic = tile size px)
    public static final float UNIT_SCALE = 1f / TILE_SIZE;
 
-   // Player constants
-   public static final float MAX_VELOCITY = 10f;
-   public static final float GRAVITY = -0.5f;
+   // Physics constants
+   public static final float TIME_STEP = 1 / 60f;
 }

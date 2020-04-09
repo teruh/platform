@@ -18,12 +18,13 @@ import me.zacl.platform.util.ConstantsContract;
  *
  * @author Zach Clark
  */
-public class PlayScreen extends PhysicsWorld implements Screen {
+public class PlayScreen implements Screen {
 
    private GameMap            map;          // The current "level" or map
    private Player             player;       // The player
    private OrthographicCamera camera;       // The main camera for the level (our eyes!)
    private SpriteBatch        spriteBatch;  // Describes/sends all sprites to the GPU at once
+   private PhysicsWorld       physicsWorld; // The physics simulation for this screen
 
    /**
     * Set default values for the play screen
@@ -36,8 +37,11 @@ public class PlayScreen extends PhysicsWorld implements Screen {
       camera.update();
 
       map = new GameMap("plat_dev.tmx", ConstantsContract.UNIT_SCALE);
+      physicsWorld = new PhysicsWorld(map.getTiledMap());
 
-      player = new Player(4, 4, map);
+      player = new Player(4, 4, physicsWorld.getBox2DWorld());
+
+      physicsWorld.generateStaticBodiesFromRectangles("level_col");
    }
 
    @Override
@@ -57,6 +61,8 @@ public class PlayScreen extends PhysicsWorld implements Screen {
       Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
       Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+      physicsWorld.update();
+
       player.update(Gdx.graphics.getDeltaTime());
 
       camera.update();
@@ -64,6 +70,8 @@ public class PlayScreen extends PhysicsWorld implements Screen {
       map.render(camera, spriteBatch);
 
       player.render(spriteBatch);
+
+      physicsWorld.render(camera.combined);
    }
 
    @Override

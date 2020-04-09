@@ -1,7 +1,9 @@
 package me.zacl.platform.entity;
 
 import com.badlogic.gdx.graphics.Texture;
-import me.zacl.platform.map.GameMap;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.World;
 import me.zacl.platform.util.ConstantsContract;
 
 /**
@@ -10,7 +12,12 @@ import me.zacl.platform.util.ConstantsContract;
  *
  * @author Zach Clark
  */
-public abstract class TexturedEntity extends Entity {
+public abstract class PhysicsEntity extends Entity {
+
+   /**
+    * Physics variables
+    */
+   private World box2DWorld;
 
    private Texture texture;   // Texture that represents this entity
    private float   width;     // Entity's width in world units
@@ -21,15 +28,15 @@ public abstract class TexturedEntity extends Entity {
     *
     * @param x   x-position of the entity in the world
     * @param y   y-position of the entity in the world
-    * @param map game world the entity lives in
+    * @param box2DWorld Box2D simulation the entity lives in
     */
-   public TexturedEntity(float x, float y, GameMap map, Texture texture) {
-      super(x, y, map);
-      this.texture = texture;
+   public PhysicsEntity(float x, float y, World box2DWorld) {
+      super(x, y);
+      this.box2DWorld = box2DWorld;
 
-      // Scale the width and height of the entity into world units
-      width = ConstantsContract.UNIT_SCALE * texture.getWidth();
-      height = ConstantsContract.UNIT_SCALE * texture.getHeight();
+//      // Scale the width and height of the entity into world units
+//      width = ConstantsContract.UNIT_SCALE * texture.getWidth();
+//      height = ConstantsContract.UNIT_SCALE * texture.getHeight();
    }
 
    /**
@@ -78,5 +85,9 @@ public abstract class TexturedEntity extends Entity {
     */
    public void setHeight(float height) {
       this.height = height;
+   }
+
+   public World getBox2DWorld() {
+      return box2DWorld;
    }
 }
