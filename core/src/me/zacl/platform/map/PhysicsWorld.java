@@ -31,7 +31,7 @@ public class PhysicsWorld {
    public PhysicsWorld(TiledMap tiledMap) {
       this.tiledMap = tiledMap;
 
-      box2DWorld = new World(new Vector2(0, -10), true);
+      box2DWorld = new World(new Vector2(0, ConstantsContract.GRAVITY), true);
       debugRenderer = new Box2DDebugRenderer();
    }
 

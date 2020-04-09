@@ -2,7 +2,6 @@ package me.zacl.platform.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import me.zacl.platform.map.GameMap;
 
 /**
  * Represents an entity that has an X, Y position in the game world
@@ -11,7 +10,6 @@ import me.zacl.platform.map.GameMap;
  * @author Zach Clark
  */
 public abstract class Entity {
-
    private Vector2 position; // X, Y position of the entity in the world
 
    /**
