@@ -28,6 +28,8 @@ public class Player extends PhysicsEntity {
    private Animation<TextureRegion> standAnimation;
    private Animation<TextureRegion> moveAnimation;
 
+   private boolean isFacingLeft;
+
    private float   width;     // Entity's width in world units
    private float   height;    // Entity's height in world units
 
@@ -42,6 +44,8 @@ public class Player extends PhysicsEntity {
     */
    public Player(float x, float y, World box2DWorld) {
       super(x, y, box2DWorld);
+
+      isFacingLeft = false;
 
       texture = new Texture("player.png");
       regions = TextureRegion.split(texture, 16, 16)[0];
@@ -79,12 +83,14 @@ public class Player extends PhysicsEntity {
       if (Gdx.input.isKeyPressed(Input.Keys.D)) {
          body.applyLinearImpulse(new Vector2(ConstantsContract.MOVE_FORCE, 0),
                                  body.getWorldCenter(), true);
+         isFacingLeft = false;
       }
 
       // Move left
       if (Gdx.input.isKeyPressed(Input.Keys.A)) {
          body.applyLinearImpulse(new Vector2(-ConstantsContract.MOVE_FORCE, 0),
                                  body.getWorldCenter(), true);
+         isFacingLeft = true;
       }
    }
 
@@ -107,7 +113,11 @@ public class Player extends PhysicsEntity {
       }
 
       batch.begin();
-      batch.draw(frame, getPositionX(), getPositionY(), width, height);
+      if (isFacingLeft) {
+         batch.draw(frame, getPositionX() + width, getPositionY(), -width, height);
+      } else {
+         batch.draw(frame, getPositionX(), getPositionY(), width, height);
+      }
       batch.end();
    }
 }
