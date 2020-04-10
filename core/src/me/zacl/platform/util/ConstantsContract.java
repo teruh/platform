@@ -22,8 +22,8 @@ public class ConstantsContract {
    // Player constants
    public static final int FRAME_COLS = 8;
    public static final int FRAME_ROWS = 4;
-   public static final float JUMP_FORCE = 4f;
-   public static final float MOVE_FORCE = 0.1f;
+   public static final float JUMP_FORCE = 5.5f;
+   public static final float MOVE_FORCE = 3f;
 
    // Physics constants
    public static final float GRAVITY = -10;

@@ -12,7 +12,7 @@ import me.zacl.platform.util.ConstantsContract;
 
 /**
  * An entity that is controlled by the user.
- * 2020-04-08
+ * 2020-04-09
  *
  * @author Zach Clark
  */
@@ -29,6 +29,7 @@ public class Player extends PhysicsEntity {
    private Animation<TextureRegion> moveAnimation;
 
    private boolean isFacingLeft;
+   private boolean isJumping;
 
    private float   width;     // Entity's width in world units
    private float   height;    // Entity's height in world units
@@ -74,23 +75,23 @@ public class Player extends PhysicsEntity {
 
    public void handleInput(float deltaTime) {
       // Jump
-      if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-         body.applyLinearImpulse(new Vector2(0, ConstantsContract.JUMP_FORCE),
-                                 body.getWorldCenter(), true);
-      }
-
-      // Move right
-      if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-         body.applyLinearImpulse(new Vector2(ConstantsContract.MOVE_FORCE, 0),
-                                 body.getWorldCenter(), true);
+      if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !isJumping) {
+         body.setLinearVelocity(body.getLinearVelocity().x, ConstantsContract.JUMP_FORCE);
+         isJumping = true;
+      } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+         // Move right
+         body.setLinearVelocity(ConstantsContract.MOVE_FORCE, body.getLinearVelocity().y);
          isFacingLeft = false;
+      } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+         // Move left
+         body.setLinearVelocity(-ConstantsContract.MOVE_FORCE, body.getLinearVelocity().y);
+         isFacingLeft = true;
+      } else {
+         body.setLinearVelocity(0.0f, body.getLinearVelocity().y);
       }
 
-      // Move left
-      if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-         body.applyLinearImpulse(new Vector2(-ConstantsContract.MOVE_FORCE, 0),
-                                 body.getWorldCenter(), true);
-         isFacingLeft = true;
+      if(body.getLinearVelocity().y == 0.0f) {
+         isJumping = false;
       }
    }
 
@@ -108,7 +109,6 @@ public class Player extends PhysicsEntity {
       if (body.getLinearVelocity().x == 0) {
          frame = standAnimation.getKeyFrame(0);
       } else {
-         System.out.println(stateTime);
          frame = moveAnimation.getKeyFrame(stateTime);
       }
 
