@@ -1,6 +1,7 @@
 package me.zacl.platform.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +18,8 @@ import me.zacl.platform.util.ConstantsContract;
  * @author Zach Clark
  */
 public class PlayScreen implements Screen {
+
+   private boolean shouldRenderBox2DDebug = false;
 
    private GameMap            map;          // The current "level" or map
    private Player             player;       // The player
@@ -70,7 +73,13 @@ public class PlayScreen implements Screen {
 
       player.render(spriteBatch);
 
-      physicsWorld.render(camera.combined);
+      if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
+         shouldRenderBox2DDebug = !shouldRenderBox2DDebug;
+      }
+
+      if (shouldRenderBox2DDebug) {
+         physicsWorld.render(camera.combined);
+      }
    }
 
    @Override
